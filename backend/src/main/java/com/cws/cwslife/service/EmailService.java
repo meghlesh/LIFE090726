@@ -1,0 +1,147 @@
+package com.cws.cwslife.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
+import java.io.File;
+import jakarta.mail.internet.MimeMessage;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import com.cws.cwslife.model.AdminUser;
+import com.cws.cwslife.repository.AdminRepository;
+
+@Service
+public class EmailService {
+	
+	 @Autowired
+	    private JavaMailSender mailSender;
+	
+	@Autowired
+	private AdminRepository adminRepository;
+	
+	@Value("${spring.mail.username}")
+    private String fromEmail;
+
+	private String getAdminEmail() {
+	    return adminRepository.findByRole("SUPER_ADMIN")
+	            .stream()
+	            .findFirst()
+	            .map(AdminUser::getEmail)
+	            .orElse("dipali@creativewebsolution.in"); // fallback
+	}
+
+    //Send email to user
+    public void sendApplicationMail(
+    		
+            String toEmail,
+            String name,
+            String jobTitle
+    ) {
+
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom(fromEmail);
+        message.setTo(toEmail);
+
+        message.setSubject("Application Received - " + jobTitle);
+
+        message.setText(
+                "Dear " + name + ",\n\n" +
+
+                "Thank you for applying for the position of "
+                + jobTitle + " at CWS.\n\n" +
+
+                "We have successfully received your application.\n" +
+                "Our recruitment team will review your profile and contact you shortly if your qualifications match our requirements.\n\n" +
+
+                "We appreciate your interest in joining CWS.\n\n" +
+
+                "Best Regards,\n" +
+                "CWS Recruitment Team"
+        );
+
+        mailSender.send(message);
+    }
+    
+    
+    
+    // Notification received to admin
+    public void sendAdminNotification(
+            String candidateName,
+            String candidateEmail,
+            String phone,
+            String jobTitle,
+            String messageText,
+            String resumePath
+    ) {
+
+        try {
+
+            MimeMessage mimeMessage = mailSender.createMimeMessage();
+
+            MimeMessageHelper helper =
+                    new MimeMessageHelper(mimeMessage, true);
+
+//            helper.setFrom("dipali@creativewebsolution.in");
+//
+//            // ADMIN EMAIL
+//            helper.setTo("dipali@creativewebsolution.in");
+            
+            helper.setFrom(fromEmail);
+            helper.setTo(getAdminEmail());
+
+            helper.setSubject("New Job Application - " + jobTitle);
+
+            helper.setText(
+                    "A new candidate has applied.\n\n" +
+
+                    "Candidate Name: " + candidateName + "\n" +
+                    "Email: " + candidateEmail + "\n" +
+                    "Phone: " + phone + "\n" +
+                    "Job Title: " + jobTitle + "\n\n" +
+
+                    "Message:\n" + messageText
+            );
+
+            // RESUME ATTACHMENT
+            FileSystemResource file =
+                    new FileSystemResource(new File(resumePath));
+
+            helper.addAttachment(file.getFilename(), file);
+
+            mailSender.send(mimeMessage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+ // ── Contact Form Notification to Admin ──
+    public void sendContactNotification(
+            String firstName,
+            String lastName,
+            String email,
+            String phone,
+            String message
+    ) {
+        try {
+            SimpleMailMessage mail = new SimpleMailMessage();
+            mail.setFrom(fromEmail);
+            mail.setTo(getAdminEmail());
+//            mail.setTo("dipali@creativewebsolution.in");
+            mail.setSubject("New Contact Inquiry from " + firstName + " " + lastName);
+            mail.setText(
+                "New message received on CWS.life\n\n" +
+                "Name    : " + firstName + " " + lastName + "\n" +
+                "Email   : " + email + "\n" +
+                "Phone   : " + (phone != null ? phone : "Not provided") + "\n" +
+                "Message : " + message + "\n\n" +
+                "View in admin panel:\n" +
+                "app-lifeqa-fe.azurewebsites.net/admin-contact-us.html"
+            );
+            mailSender.send(mail);
+        } catch (Exception e) {
+            System.out.println("Contact email failed: " + e.getMessage());
+        }
+    }
+}
