@@ -1235,7 +1235,7 @@ inputs.forEach(input => {
 
   async function loadCareers() {
     try {
-        const response = await fetch("http://localhost:8080/api/career/all");
+        const response = await fetch("api-lifeqa-be.azurewebsites.net/api/career/all");
         const careers = await response.json();
         // allCareerData = careers; 
 
@@ -1486,7 +1486,7 @@ document.getElementById("deleteBtn").addEventListener("click", async function(e)
     if(!confirm("Are you sure you want to delete this job?")) return;
     
     try {
-        const response = await fetch(`http://localhost:8080/api/career/delete/${jobId}`, { method: "DELETE" });
+        const response = await fetch(`api-lifeqa-be.azurewebsites.net/api/career/delete/${jobId}`, { method: "DELETE" });
         if(response.ok){
             alert("Job deleted successfully");
             document.getElementById("actionDropdown").style.display = "none";
@@ -1507,7 +1507,7 @@ document.getElementById("editBtn").addEventListener("click", async function(e){
     document.getElementById("actionDropdown").style.display = "none";
     
     try {
-        const response = await fetch(`http://localhost:8080/api/career/${jobId}`);
+        const response = await fetch(`api-lifeqa-be.azurewebsites.net/api/career/${jobId}`);
         const job = await response.json();
         currentEditId = jobId;
         isEditing = true;
@@ -1544,7 +1544,7 @@ document.getElementById("previewBtn").addEventListener("click", async function(e
     document.getElementById("actionDropdown").style.display = "none";
 
     try {
-        const response = await fetch(`http://localhost:8080/api/career/${jobId}`);
+        const response = await fetch(`api-lifeqa-be.azurewebsites.net/api/career/${jobId}`);
         const job = await response.json();
 
         document.getElementById("popupTitle").innerText = "Job Preview";
@@ -1593,13 +1593,13 @@ document.getElementById("jobForm").addEventListener("submit", async function(e){
     try {
         let response;
         if(isEditing){
-            response = await fetch(`http://localhost:8080/api/career/update/${currentEditId}`, {
+            response = await fetch(`api-lifeqa-be.azurewebsites.net/api/career/update/${currentEditId}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(jobData)
             });
         } else {
-            response = await fetch("http://localhost:8080/api/career/add", {
+            response = await fetch("api-lifeqa-be.azurewebsites.net/api/career/add", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(jobData)

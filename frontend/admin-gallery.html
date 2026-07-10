@@ -636,13 +636,13 @@
        formData.append("category", category);
        formData.append("title", title);
        
-      let apiUrl = "http://localhost:8080/api/gallery/add";
+      let apiUrl = "api-lifeqa-be.azurewebsites.net/api/gallery/add";
       let method = "POST";
       let successMsg = "Item Added Successfully";
       
       // IF EDITING
       if(isEditing && currentEditId) {
-          apiUrl = `http://localhost:8080/api/gallery/update/${currentEditId}`; 
+          apiUrl = `api-lifeqa-be.azurewebsites.net/api/gallery/update/${currentEditId}`; 
           method = "PUT"; 
           successMsg = "Item Updated Successfully";
       }
@@ -734,7 +734,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <!--use this dynamic code to fetch images(Jayashree) (FIXED: PAGINATION ALWAYS VISIBLE) -->
 <script>
-const API_URL = "http://localhost:8080/api/gallery/all";
+const API_URL = "api-lifeqa-be.azurewebsites.net/api/gallery/all";
 let allGallery = [];
 const ITEMS_PER_PAGE = 16; 
 let currentPage = 1;
@@ -814,13 +814,13 @@ function renderGallery(pageNumber) {
         else if(category === "CWS_VIDEO") category = "CWS_VIDEO";
 
         const smallImage =
-    "http://localhost:8080" + item.smallImagePath;
+    "api-lifeqa-be.azurewebsites.net" + item.smallImagePath;
 
     const mediumImage =
-    "http://localhost:8080" + item.mediumImagePath;
+    "api-lifeqa-be.azurewebsites.net" + item.mediumImagePath;
 
     const imageUrl =
-    "http://localhost:8080" + item.largeImagePath;
+    "api-lifeqa-be.azurewebsites.net" + item.largeImagePath;
 
         let mediaTag = "";
         
@@ -980,7 +980,7 @@ function searchGallery(keyword) {
         else if(category === "work_anniversary") category = "Work Anniversary";
         else if(category === "CWS_VIDEO") category = "CWS_VIDEO";
 
-        const imageUrl = "http://localhost:8080" + (item.mediumImagePath || item.smallImagePath || item.largeImagePath);
+        const imageUrl = "api-lifeqa-be.azurewebsites.net" + (item.mediumImagePath || item.smallImagePath || item.largeImagePath);
         let mediaTag = category === "CWS_VIDEO" 
             ? `<video controls width="100%"><source src="${imageUrl}" type="video/mp4"></video>` 
             : `<img src="${imageUrl}" alt="gallery">`;
@@ -1078,7 +1078,7 @@ function openEditPopup(id) {
     }
 
     // 3. Show existing media preview in the upload box
-    const imageUrl = "http://localhost:8080" + item.largeImagePath;
+    const imageUrl = "api-lifeqa-be.azurewebsites.net" + item.largeImagePath;
     const isVideo = item.category === "CWS_VIDEO" || (item.largeImagePath && item.largeImagePath.match(/\.(mp4|webm|ogg)$/i));
 
     if (isVideo) {
@@ -1121,7 +1121,7 @@ async function deleteItem(id) {
 
     try {
         // Adjust URL if your delete API is different
-        const response = await fetch(`http://localhost:8080/api/gallery/delete/${id}`, {
+        const response = await fetch(`api-lifeqa-be.azurewebsites.net/api/gallery/delete/${id}`, {
             method: 'DELETE'
         });
 
