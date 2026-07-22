@@ -18,8 +18,8 @@ public class FileUploadController {
 //    private String uploadDir;
 	
 	// path 
-    private final String uploadDir = 
-        System.getProperty("user.dir") + "/uploads/events/";
+   private static final String uploadDir =
+        "/home/site/wwwroot/uploads/events/";
 
     // POST /api/upload/image
     // URL return 
