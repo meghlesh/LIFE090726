@@ -16,6 +16,7 @@ public class WebConfig implements WebMvcConfigurer {
         // Events images
         registry.addResourceHandler("/uploads/events/**")
                 .addResourceLocations("file:/home/site/wwwroot/uploads/events/");
+
         
         // Social Contribution Images
         registry.addResourceHandler("/uploads/**")
