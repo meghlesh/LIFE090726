@@ -1124,7 +1124,7 @@ const videoGallery = document.getElementById("videoGallery");
 // LOAD API
 // =========================================
 
-fetch("api-lifeqa-be.azurewebsites.net/api/gallery/all")
+fetch("https://api-lifeqa-be.azurewebsites.net/api/gallery/all")
 
   .then(response => response.json())
 
@@ -1164,7 +1164,7 @@ function renderGallery(data) {
                     <video class="gallery-video" controls>
 
                         <source
-                            src="api-lifeqa-be.azurewebsites.net${item.largeImagePath}"
+                            src="https://api-lifeqa-be.azurewebsites.net${item.largeImagePath}"
                             type="video/mp4">
 
                     </video>
@@ -1211,10 +1211,10 @@ function renderGallery(data) {
                 <div class="gallery-card ${item.category.toLowerCase()}">
 
                     <img
-                        src="api-lifeqa-be.azurewebsites.net${item.mediumImagePath}"
-                        data-small="api-lifeqa-be.azurewebsites.net${item.smallImagePath}"
-                        data-medium="api-lifeqa-be.azurewebsites.net${item.mediumImagePath}"
-                        data-large="api-lifeqa-be.azurewebsites.net${item.largeImagePath}"
+                        src="https://api-lifeqa-be.azurewebsites.net${item.mediumImagePath}"
+                        data-small="https://api-lifeqa-be.azurewebsites.net${item.smallImagePath}"
+                        data-medium="https://api-lifeqa-be.azurewebsites.net${item.mediumImagePath}"
+                        data-large="https://api-lifeqa-be.azurewebsites.net${item.largeImagePath}"
                         alt="${item.title}">
 
    

@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   function loadContactNotifications() {
-    fetch('api-lifeqa-be.azurewebsites.net/api/contact/notifications')
+    fetch('https://https://api-lifeqa-be.azurewebsites.net/api/contact/notifications')
     .then(function(res) { return res.json(); })
     .then(function(data) {
       contactNotifications  = (data.notifications || []).map(function(notif) {
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     //Career notification
    function loadCareerNotifications() {
-     fetch('api-lifeqa-be.azurewebsites.net/api/apply/notifications')
+     fetch('https://https://api-lifeqa-be.azurewebsites.net/api/apply/notifications')
        .then(function(res) {
         return res.json();
       })
@@ -137,8 +137,8 @@ function markReadAndRedirect(id, type) {
   var url = type === 'career' ? 'career-panel.html' : 'admin-contact-us.html';
   var api =
   type === 'career'
-    ? 'api-lifeqa-be.azurewebsites.net/api/apply/read/' + id
-    : 'api-lifeqa-be.azurewebsites.net/api/contact/read/' + id;
+    ? 'https://api-lifeqa-be.azurewebsites.net/api/apply/read/' + id
+    : 'https://api-lifeqa-be.azurewebsites.net/api/contact/read/' + id;
     fetch(api, { method: 'PUT' })
   .then(function() { window.location.href = url; })
   .catch(function() { window.location.href = url; });
@@ -146,8 +146,8 @@ function markReadAndRedirect(id, type) {
 
 function markAllAsRead() {
   Promise.all([
-  fetch('api-lifeqa-be.azurewebsites.net/api/contact/read-all', { method: 'PUT' }),
-  fetch('api-lifeqa-be.azurewebsites.net/api/apply/read-all', { method: 'PUT' })
+  fetch('https://https://api-lifeqa-be.azurewebsites.net/api/contact/read-all', { method: 'PUT' }),
+  fetch('https://https://api-lifeqa-be.azurewebsites.net/api/apply/read-all', { method: 'PUT' })
   ])
   .then(function() {
     var notifyList  = document.getElementById('notifyList');

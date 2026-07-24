@@ -345,7 +345,7 @@
 
   // ── Fetch data from backend ──
   function loadContactsFromBackend() {
-    fetch('api-lifeqa-be.azurewebsites.net/api/contact/all')
+    fetch('https://https://api-lifeqa-be.azurewebsites.net/api/contact/all')
     .then(function(res) { return res.json(); })
     .then(function(data) {
 
@@ -562,7 +562,7 @@
     if (deleteTargetId !== null) {
 
     // Delete from backend
-    fetch('api-lifeqa-be.azurewebsites.net/api/contact/delete/' + deleteTargetId, {
+    fetch('https://https://api-lifeqa-be.azurewebsites.net/api/contact/delete/' + deleteTargetId, {
       method: 'DELETE'
     })
     .then(function(res) { return res.json(); })
