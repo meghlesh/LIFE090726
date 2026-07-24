@@ -199,7 +199,7 @@ function handleLogin() {
   loginButton.textContent = 'Logging in...';
 
   // Backend API call
-  fetch('https://https://api-lifeqa-be.azurewebsites.net/api/auth/login', {
+  fetch('https://api-lifeqa-be.azurewebsites.net/api/auth/login', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -319,7 +319,7 @@ function handleLogin() {
       newSendBtn.disabled    = true;
       newSendBtn.textContent = 'Sending...';
 
-      fetch('https://https://api-lifeqa-be.azurewebsites.net/api/auth/forgot-password', {
+      fetch('https://api-lifeqa-be.azurewebsites.net/api/auth/forgot-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: email })
