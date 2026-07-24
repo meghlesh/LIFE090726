@@ -185,7 +185,7 @@
       sendEmailBtn.disabled   = true;
       sendEmailBtn.textContent = 'Sending...';
 
-      // Backend API call
+      // Backend API call - FIXED: Removed double https://
       fetch('https://api-lifeqa-be.azurewebsites.net/api/auth/forgot-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
